@@ -9,7 +9,7 @@ interface Props {
 const InputField: React.FC<Props> = ({ todo, setTodo, addHandler }) => {
   return (
     <form
-      className="relative mt-8 flex w-1/3 items-center justify-center"
+      className="relative mt-8 flex w-full items-center justify-center"
       onSubmit={addHandler}
     >
       <input

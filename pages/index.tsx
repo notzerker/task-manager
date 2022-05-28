@@ -4,6 +4,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 import InputField from "../components/InputField";
 import { ToDo } from "../components/model";
+import TodoList from "../components/TodoList";
 
 const Home: NextPage = () => {
   const [todo, setTodo] = useState<string>("");
@@ -17,8 +18,6 @@ const Home: NextPage = () => {
     }
   };
 
-  console.log(todos);
-
   return (
     <>
       <Head>
@@ -30,9 +29,12 @@ const Home: NextPage = () => {
           rel="stylesheet"
         ></link>
       </Head>
-      <div className="flex h-screen w-full flex-col items-center bg-emerald-500">
-        <h1 className="z-10 mt-16 text-3xl font-bold">Task Manager</h1>
-        <InputField todo={todo} setTodo={setTodo} addHandler={addHandler} />
+      <div className="flex h-screen flex-col items-center bg-[#1c1c1c]">
+        <div className="flex w-1/3 flex-col items-center">
+          <h1 className="z-10 mt-16 text-3xl font-medium">Task Manager</h1>
+          <InputField todo={todo} setTodo={setTodo} addHandler={addHandler} />
+          <TodoList todos={todos} setTodos={setTodos} />
+        </div>
       </div>
     </>
   );
