@@ -29,7 +29,7 @@ const Home: NextPage = () => {
           rel="stylesheet"
         ></link>
       </Head>
-      <div className="flex h-screen flex-col items-center bg-[#1c1c1c]">
+      <div className="flex h-screen flex-col items-center ">
         <div className="flex w-1/3 flex-col items-center">
           <h1 className="z-10 mt-16 text-3xl font-medium">Task Manager</h1>
           <InputField todo={todo} setTodo={setTodo} addHandler={addHandler} />
