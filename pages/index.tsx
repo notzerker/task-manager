@@ -2,13 +2,16 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import React, { useState } from "react";
+import { BsReverseLayoutSidebarReverse } from "react-icons/bs";
 import InputField from "../components/InputField";
 import { ToDo } from "../components/model";
 import TodoList from "../components/TodoList";
+import { IoIosClose } from "react-icons/io";
 
 const Home: NextPage = () => {
   const [todo, setTodo] = useState<string>("");
   const [todos, setTodos] = useState<ToDo[]>([]);
+  const [open, setOpen] = useState<boolean>(false);
 
   const addHandler = (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,9 +32,35 @@ const Home: NextPage = () => {
           rel="stylesheet"
         ></link>
       </Head>
-      <div className="flex h-screen flex-col items-center bg-gradient-to-br from-[#c0efe3] to-[#aec0f5]">
-        <div className="flex w-1/3 flex-col items-center">
-          <h1 className="z-10 mt-16 text-3xl font-medium">Task Manager</h1>
+      <div className="relative flex min-h-screen flex-row items-start bg-gradient-to-br from-[#c0efe3] to-[#aec0f5]">
+        <div
+          className={`${
+            open ? "translate-x-0 delay-200" : "-translate-x-full "
+          } fixed z-50 h-full w-64 bg-[#aec0f5] transition-all  duration-300 ease-in`}
+        >
+          <div
+            className="absolute top-12 right-4 w-fit cursor-pointer rounded-lg bg-gray-100 p-2"
+            onClick={() => setOpen(!open)}
+          >
+            <IoIosClose className="text-xl" />
+          </div>
+        </div>
+        <div
+          className={`${
+            open ? "-translate-x-full" : "translate-x-0 delay-200"
+          } absolute left-0 top-12 z-50 cursor-pointer rounded-r-lg bg-gray-100 p-2 transition-all  duration-300 ease-in`}
+          onClick={() => setOpen(!open)}
+        >
+          <BsReverseLayoutSidebarReverse className="text-xl" />
+        </div>
+        <div
+          className={`${
+            open
+              ? "w-[calc(100%_-_16rem)]  translate-x-64 delay-200"
+              : "h-fit w-full translate-x-0"
+          } relative my-16 flex h-fit flex-col items-start overflow-scroll px-24 transition-all duration-300 ease-in`}
+        >
+          <h1 className="z-10 text-3xl font-medium">Task Manager</h1>
           <InputField todo={todo} setTodo={setTodo} addHandler={addHandler} />
           <TodoList todos={todos} setTodos={setTodos} />
         </div>
