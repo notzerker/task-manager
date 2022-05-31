@@ -20,7 +20,7 @@ const InputField: React.FC<Props> = ({ todo, setTodo, addHandler }) => {
         className="w-full rounded-2xl border-2 border-gray-400 p-4 pr-16 transition duration-200 ease-linear focus:shadow-xl focus:outline-none"
       ></input>
       <button
-        className="absolute right-1 rounded-2xl border-2 bg-black p-3 text-white "
+        className="absolute right-2 rounded-2xl bg-black p-3 text-white "
         type="submit"
       >
         Add
