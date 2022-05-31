@@ -11,7 +11,6 @@ interface Props {
 }
 
 const Card = ({ todo, todos, setTodos }: Props) => {
-  const [done, setDone] = useState(todo.isDone);
   const [edit, setEdit] = useState(false);
   const [editText, setEditText] = useState(todo.todo);
 
@@ -32,11 +31,18 @@ const Card = ({ todo, todos, setTodos }: Props) => {
     setEdit(false);
   };
 
-  const doneHandler = () => {
+  const doneHandler = (id: number) => {
     if (edit) {
       setEdit(false);
     }
-    setDone(!done);
+    setTodos(
+      todos.map((todo) => {
+        if (todo.id === id) {
+          return { ...todo, isDone: !todo.isDone };
+        }
+        return todo;
+      })
+    );
   };
 
   const inputRef = useRef<HTMLInputElement>(null);
@@ -50,7 +56,7 @@ const Card = ({ todo, todos, setTodos }: Props) => {
   return (
     <div
       className={`${
-        done ? "bg-emerald-400" : "bg-white"
+        todo.isDone ? "bg-emerald-400" : "bg-white"
       } flex w-full select-none flex-row items-center justify-between rounded-2xl border-2 border-gray-400 p-4 text-black transition duration-100 ease-linear`}
     >
       {edit ? (
@@ -68,7 +74,7 @@ const Card = ({ todo, todos, setTodos }: Props) => {
         <p>{todo.todo}</p>
       )}
       <div className="flex flex-row space-x-3">
-        {!done && (
+        {!todo.isDone && (
           <AiFillEdit
             className="cursor-pointer"
             onClick={() => setEdit(!edit)}
@@ -78,8 +84,8 @@ const Card = ({ todo, todos, setTodos }: Props) => {
           className="cursor-pointer"
           onClick={() => removeHandler(todo.id)}
         />
-        <div className="cursor-pointer" onClick={() => doneHandler()}>
-          {done ? <BsCheckCircleFill /> : <BsCheckCircle />}
+        <div className="cursor-pointer" onClick={() => doneHandler(todo.id)}>
+          {todo.isDone ? <BsCheckCircleFill /> : <BsCheckCircle />}
         </div>
       </div>
     </div>
