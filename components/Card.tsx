@@ -8,14 +8,20 @@ interface Props {
   todo: ToDo;
   todos: ToDo[];
   setTodos: React.Dispatch<React.SetStateAction<ToDo[]>>;
+  complete: ToDo[];
+  setComplete: React.Dispatch<React.SetStateAction<ToDo[]>>;
 }
 
-const Card = ({ todo, todos, setTodos }: Props) => {
+const Card = ({ todo, todos, setTodos, complete, setComplete }: Props) => {
   const [edit, setEdit] = useState(false);
   const [editText, setEditText] = useState(todo.todo);
 
   const removeHandler = (id: number) => {
-    setTodos(todos?.filter((todo) => todo.id !== id));
+    if (todo.isDone) {
+      setComplete(complete?.filter((todo) => todo.id !== id));
+    } else {
+      setTodos(todos?.filter((todo) => todo.id !== id));
+    }
   };
 
   const editHanlder = (e: React.FormEvent, id: number) => {
@@ -35,14 +41,16 @@ const Card = ({ todo, todos, setTodos }: Props) => {
     if (edit) {
       setEdit(false);
     }
-    setTodos(
-      todos.map((todo) => {
-        if (todo.id === id) {
-          return { ...todo, isDone: !todo.isDone };
-        }
-        return todo;
-      })
-    );
+    if (todo.isDone) {
+      setComplete(complete.filter((todo) => todo.id !== id));
+      setTodos([...todos, { todo: todo.todo, id: todo.id, isDone: false }]);
+    } else {
+      setTodos(todos.filter((todo) => todo.id !== id));
+      setComplete([
+        ...complete,
+        { todo: todo.todo, id: todo.id, isDone: true },
+      ]);
+    }
   };
 
   const inputRef = useRef<HTMLInputElement>(null);

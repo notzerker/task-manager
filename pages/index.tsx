@@ -11,6 +11,7 @@ import { IoIosClose } from "react-icons/io";
 const Home: NextPage = () => {
   const [todo, setTodo] = useState<string>("");
   const [todos, setTodos] = useState<ToDo[]>([]);
+  const [complete, setComplete] = useState<ToDo[]>([]);
   const [open, setOpen] = useState<boolean>(false);
 
   const addHandler = (e: React.FormEvent) => {
@@ -32,7 +33,7 @@ const Home: NextPage = () => {
           rel="stylesheet"
         ></link>
       </Head>
-      <div className="relative flex min-h-screen flex-row items-start bg-gradient-to-br from-[#c0efe3] to-[#aec0f5]">
+      <div className="relative flex min-h-screen flex-row items-start bg-gradient-to-br from-[#c0efe3] via-[#fdd8d3] to-[#aec0f5]">
         <div
           className={`${
             open ? "translate-x-0 delay-200" : "-translate-x-full "
@@ -62,7 +63,12 @@ const Home: NextPage = () => {
         >
           <h1 className="z-10 text-3xl font-medium">Task Manager</h1>
           <InputField todo={todo} setTodo={setTodo} addHandler={addHandler} />
-          <TodoList todos={todos} setTodos={setTodos} />
+          <TodoList
+            todos={todos}
+            setTodos={setTodos}
+            complete={complete}
+            setComplete={setComplete}
+          />
         </div>
       </div>
     </>
