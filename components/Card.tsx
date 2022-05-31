@@ -50,8 +50,8 @@ const Card = ({ todo, todos, setTodos }: Props) => {
   return (
     <div
       className={`${
-        done ? "bg-emerald-500" : "bg-white"
-      } flex w-full select-none flex-row items-center justify-between rounded-2xl border-[3px] border-gray-200 p-4 text-black transition duration-100 ease-linear`}
+        done ? "bg-emerald-400" : "bg-white"
+      } flex w-full select-none flex-row items-center justify-between rounded-2xl border-2 border-gray-400 p-4 text-black transition duration-100 ease-linear`}
     >
       {edit ? (
         <form className="mr-4 w-full" onSubmit={(e) => editHanlder(e, todo.id)}>
